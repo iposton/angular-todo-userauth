@@ -1,6 +1,6 @@
 # Angular Todo Userauth
 
-This app is designed to make http requests to a node.js app that is running on localhost://4200. I made a back-end API called [Node.js todo userauth](https://github.com/iposton/nodejs-todo-userauth). This angular front-end app work with the Node.js API to allow a user to Create a task, Read a task, Update the task, and Delete a task. 
+This app is designed to make http requests to a node.js app that is running on localhost://4000. I made a back-end API called [Node.js todo userauth](https://github.com/iposton/nodejs-todo-userauth). This angular front-end app work with the Node.js API to allow a user to Create a task, Read a task, Update the task, and Delete a task. 
 
 ## Software used
 
@@ -14,6 +14,6 @@ Node.js version 18.10.0
 1. run `npm i`
 2. `ng serve`
 
-Then go to http://localhost:4000 on your machine.
+Then go to http://localhost:4200 on your machine.
 
 
