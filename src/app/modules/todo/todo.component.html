@@ -1,1 +1,34 @@
-<p>todo works!</p>
+
+<label for="name">Task: </label>
+<input id="task" type="text" [formControl]="task">
+<button type="button" (click)="createTask()">Add a Task</button>
+
+<p>incompleted tasks</p>
+
+<div *ngIf="todos != null">
+    <div  *ngFor="let item of todos; index as i">
+      <span *ngIf="!item.completed">
+        <label class="form-control">
+            <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = true)" />
+            {{item.task}}
+        </label>
+        <button type="button" (click)="deleteTask(item); $event.stopPropagation()">Delete Task</button>
+      </span>
+    </div>
+    
+    <hr>
+    
+    <p>completed tasks</p>
+    
+    <div *ngFor="let item of todos; index as i">
+        <span *ngIf="item.completed">
+            <label class="form-control radio-item">
+                <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = false)" />
+                {{item.task}}
+            </label>
+            <button type="button" (click)="deleteTask(item); $event.stopPropagation()">Delete Task</button>
+          </span>
+    </div>
+    
+</div>
+

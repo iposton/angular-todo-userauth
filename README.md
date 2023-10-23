@@ -1,28 +1,19 @@
-# AngularTodoUserauth
+# Angular Todo Userauth
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+This app is designed to make http requests to a node.js app that is running on localhost://4200. I made a back-end API called [Node.js todo userauth](https://github.com/iposton/nodejs-todo-userauth). This angular front-end app work with the Node.js API to allow a user to Create a task, Read a task, Update the task, and Delete a task. 
 
-## Development server
+## Software used
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Angular CLI version 16.2.7
+Express.js version 4.15.2
+Typescript version 5.1.3
+Node.js version 18.10.0
 
-## Code scaffolding
+## Install and serve the app
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. run `npm i`
+2. `ng serve`
 
-## Build
+Then go to http://localhost:4000 on your machine.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# angular-todo-userauth
