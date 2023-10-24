@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo.model';
 import { first } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -12,11 +13,13 @@ import { FormControl } from '@angular/forms';
 })
 export class TodoComponent implements OnInit {
   public todos?: any;
-  public task = new FormControl('');
+  public task = new FormControl('', Validators.maxLength(40));
   public isCompleted?: boolean = false;
   constructor(private todoService: TodoService) {
 
   }
+
+  // public get f() { return this.task; }
 
   public onChange(event: any, isCompleted: boolean) {
     console.log(event.target.value, 'todo selected');
@@ -32,7 +35,7 @@ export class TodoComponent implements OnInit {
       if (res != null && (res as any).status === 200)
         this.getAll();
       else 
-       console.log('something went wrong')
+       console.log('something went wrong');
     });
   }
 
@@ -44,6 +47,10 @@ export class TodoComponent implements OnInit {
   }
 
   public createTask() {
+    if (this.task.hasError('maxlength')) {
+      console.log('task too many characters, it can only be 40 characters long. summarize your task.')
+      return
+    }
     console.log(this.task.value, 'send this task to server')
     let data = {task: this.task.value, completed: false};
     this.todoService.createTodo(data).subscribe((res) => {

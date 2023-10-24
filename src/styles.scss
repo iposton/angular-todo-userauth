@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar {
+  background: rgb(18,52,101);
+  background: linear-gradient(90deg, rgba(18,52,101,1) 0%, rgba(8,110,150,1) 40%, rgba(34,111,171,1) 100%);
+}
+
+.todo-page {
+    margin-top: 20px;
+}
+
 .form-control.radio-item {
     text-decoration: line-through
+}
+
+.delete-btn,
+.task-btn {
+    margin-left: 15px;
+}
+
+.edit-text {
+    font-size: 12px;
+    opacity: .7;
+    float: right;
 }

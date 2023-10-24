@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent implements OnInit {
-  
-  constructor() {}
+import { AuthenticationService } from './services/authentication.service';
+import { User } from './models/user.model';
 
-  ngOnInit() {
-    
-  }
+@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+export class AppComponent {
+    user?: User | null;
+
+    constructor(private authenticationService: AuthenticationService) {
+        this.authenticationService.user.subscribe(x => this.user = x);
+    }
+
+    logout() {
+        this.authenticationService.logout();
+    }
 }

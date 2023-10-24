@@ -1,34 +1,46 @@
-
-<label for="name">Task: </label>
-<input id="task" type="text" [formControl]="task">
-<button type="button" (click)="createTask()">Add a Task</button>
-
-<p>incompleted tasks</p>
-
-<div *ngIf="todos != null">
-    <div  *ngFor="let item of todos; index as i">
-      <span *ngIf="!item.completed">
-        <label class="form-control">
-            <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = true)" />
-            {{item.task}}
-        </label>
-        <button type="button" (click)="deleteTask(item); $event.stopPropagation()">Delete Task</button>
-      </span>
+<div class="todo-page">
+    <div class="input-group mb-2">
+        <input class="form-control" id="task" type="text" [formControl]="task" placeholder="Task..." maxlength="50" >
+        <div class="input-group-append">
+          <button type="button" (click)="createTask()" class="btn btn-primary mb-2 btn-lg task-btn" >Add a Task</button>
+        </div> 
     </div>
-    
-    <hr>
-    
-    <p>completed tasks</p>
-    
-    <div *ngFor="let item of todos; index as i">
-        <span *ngIf="item.completed">
-            <label class="form-control radio-item">
-                <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = false)" />
-                {{item.task}}
-            </label>
-            <button type="button" (click)="deleteTask(item); $event.stopPropagation()">Delete Task</button>
+    <div class="alert alert-danger mt-3 mb-0" *ngIf="task.hasError('maxlength')"> 
+        {{ task.hasError('maxlength') ? 'Task can be max 40 characters long.' : '' }}
+    </div>
+      
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Incomplete Tasks</h5>
+        <small>last edited 3 days ago</small>
+      </div>
+      <div *ngIf="todos != null">
+         <div  *ngFor="let item of todos; index as i">
+          <span *ngIf="!item.completed">
+              <label class="form-control">
+                  <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = true)" />
+                  {{item.task}} 
+                  <small class="edit-text">Last edited: {{item.lastEdited | date: 'short'}}</small>
+              </label>      
           </span>
-    </div>
-    
+        </div>
+      
+      <hr>
+          
+      <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Completed Tasks</h5>
+      </div>
+        <div *ngFor="let item of todos; index as i">
+          <span *ngIf="item.completed">
+              <label class="form-control radio-item">
+              <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = false)" />
+                  {{item.task}}
+              <small class="edit-text">Last edited: {{item.lastEdited | date: 'short'}}</small>
+              <button type="button" (click)="deleteTask(item); $event.stopPropagation()" class="btn btn-outline-danger btn-sm delete-btn">Delete Task</button>
+              </label>         
+          </span>
+        </div>   
+      </div> 
+      <!-- end todo container -->
 </div>
+
 

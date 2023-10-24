@@ -4,10 +4,10 @@ This app is designed to make http requests to a node.js app that is running on l
 
 ## Software used
 
-Angular CLI version 16.2.7
-Express.js version 4.15.2
-Typescript version 5.1.3
-Node.js version 18.10.0
+  * Angular CLI version 16.2.7
+  * Express.js version 4.15.2
+  * Typescript version 5.1.3
+  * Node.js version 18.10.0
 
 ## Install and serve the app
 
