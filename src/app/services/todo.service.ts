@@ -19,7 +19,7 @@ export class TodoService {
   }
 
   public getTodos() {
-    return this.http.get<Todo[]>(`${environment.apiUrl}/todos`);
+    return this.http.get<Todo[]>(`${environment.apiUrl}/todos?sort=desc`);
   }
 
   public updateTodo(id: string, data: object) {

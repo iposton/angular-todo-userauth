@@ -37,6 +37,17 @@ export class TodoComponent implements OnInit {
     let data = {name: this.selectedList.name};
   }
 
+  public getLists() {
+    this.listService.getLists().pipe(first()).subscribe(lists => {
+      this.lists = lists;
+      this.daysSinceEdited();
+
+      this.selectedList = this.lists.length > 0 ? this.lists[0] : [];
+      this.selectedListID = this.lists.length > 0 ? this.lists[0].id : '';
+      console.log(lists, 'lists from nodejs API');
+    });
+  }
+
   public updateList() {
     if (this.updatedList.hasError('maxlength')) {
       console.log('List has too many characters, it can only be 40 characters long. summarize your task.')
@@ -47,7 +58,7 @@ export class TodoComponent implements OnInit {
       if (res != null && (res as any).status === 200) {
         this.updateText = false;
         this.updatedList.reset();
-        this.getAll();
+        this.getLists();
       } else {
         console.log('something went wrong');
       }  
@@ -65,7 +76,7 @@ export class TodoComponent implements OnInit {
       console.log(res, 'res from node api');
       //get updated list of todos after a new one is succesfully created
       if (res != null && (res as any).status === 200) {
-        this.getAll();
+        this.getLists();
         this.list.reset();
       } else {
         console.log('something went wrong')
@@ -78,7 +89,7 @@ export class TodoComponent implements OnInit {
     this.listService.deleteList(list.id, list).subscribe(res => {
       console.log(res, 'res from node api');
       if (res != null && (res as any).status === 200)
-        this.getAll();
+        this.getLists();
       else 
        console.log('something went wrong')
     });
@@ -98,26 +109,17 @@ export class TodoComponent implements OnInit {
     this.todoService.updateTodo(todoID, data).subscribe(res => {
       console.log(res, 'res from node api');
       if (res != null && (res as any).status === 200)
-        this.getAll();
+        this.getTodos();
       else 
        console.log('something went wrong');
     });
   }
 
-  public getAll() {
+  public getTodos() {
     this.todoService.getTodos().pipe(first()).subscribe(todos => {
       this.todos = todos;
       this.daysSinceEdited();
       console.log(todos, 'todos from nodejs API');
-    });
-
-    this.listService.getLists().pipe(first()).subscribe(lists => {
-      this.lists = lists;
-      this.daysSinceEdited();
-
-      this.selectedList = this.lists.length > 0 ? this.lists[0] : [];
-      this.selectedListID = this.lists.length > 0 ? this.lists[0].id : '';
-      console.log(lists, 'lists from nodejs API');
     });
   }
 
@@ -132,7 +134,7 @@ export class TodoComponent implements OnInit {
       console.log(res, 'res from node api');
       //get updated list of todos after a new one is succesfully created
       if (res != null && (res as any).status === 200) {
-        this.getAll();
+        this.getTodos();
         this.task.reset();
       } else {
         console.log('something went wrong')
@@ -146,7 +148,7 @@ export class TodoComponent implements OnInit {
     this.todoService.deleteTodo(todo.id, todo).subscribe(res => {
       console.log(res, 'res from node api');
       if (res != null && (res as any).status === 200)
-        this.getAll();
+        this.getTodos();
       else 
        console.log('something went wrong')
     });
@@ -154,7 +156,8 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     //Loading all todos from server onInit
-    this.getAll();
+    this.getTodos();
+    this.getLists();
   }
 
   public daysSinceEdited() {
