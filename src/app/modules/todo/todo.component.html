@@ -1,21 +1,53 @@
 <div class="todo-page">
     <div class="input-group mb-2">
+        <select *ngIf="lists != null && lists.length &gt; 0" class="form-select list-select" aria-label="Default select example" (change)="onSelect($event)">
+            <option value="{{i}}" *ngFor="let item of lists; index as i">{{item?.name}}</option>
+        </select>
+        <input class="form-control" id="list" type="text" [formControl]="list" placeholder="List Name..." maxlength="50" >
+        <div class="input-group-append">
+          <button type="button" (click)="createList()" class="btn btn-primary mb-2 btn-sm task-btn" >Create New List</button>
+        </div> 
+    </div>
+    <div class="alert alert-danger mt-3 mb-0" *ngIf="list.hasError('maxlength')"> 
+        {{ list.hasError('maxlength') ? 'List name can be max 40 characters long.' : '' }}
+    </div>
+
+    <div *ngIf="lists != null" class="list-header">
+        <span *ngIf="updateText === true" class="input-group mb-2">
+            <input class="form-control" id="list" type="text" [formControl]="updatedList" placeholder="Edit Name..." maxlength="50" >
+            <div class="input-group-append">
+              <button type="button" (click)="updateList(); $event.stopPropagation()" class="btn btn-secondary btn-sm update-btn">Submit Update</button>
+              <button type="button" (click)="updateText = !updateText; $event.stopPropagation()" class="btn btn-outline-danger btn-sm delete-btn">Cancel</button>
+            </div>
+            <div class="alert alert-danger mt-3 mb-0" *ngIf="updatedList.hasError('maxlength')"> 
+                {{ updatedList.hasError('maxlength') ? 'List name can be max 40 characters long.' : '' }}
+            </div>
+        </span>
+        <span *ngIf="updateText === false && lists.length &gt; 0">
+            <span class="header-title">{{selectedList?.name}}</span> 
+            <button type="button" (click)="deleteList(selectedList); $event.stopPropagation()" class="btn btn-outline-danger btn-sm delete-btn">Delete List</button>
+            <button type="button" (click)="updateText = !updateText; $event.stopPropagation()" class="btn btn-secondary btn-sm update-btn">Update List</button>
+        </span>
+    </div>
+
+    <div class="input-group mb-2" *ngIf="lists != null && lists.length &gt; 0">
         <input class="form-control" id="task" type="text" [formControl]="task" placeholder="Task..." maxlength="50" >
         <div class="input-group-append">
-          <button type="button" (click)="createTask()" class="btn btn-primary mb-2 btn-lg task-btn" >Add a Task</button>
+          <button type="button" (click)="createTask()" class="btn btn-primary mb-2 btn-sm task-btn" >Add a Task</button>
         </div> 
     </div>
     <div class="alert alert-danger mt-3 mb-0" *ngIf="task.hasError('maxlength')"> 
         {{ task.hasError('maxlength') ? 'Task can be max 40 characters long.' : '' }}
     </div>
       
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Incomplete Tasks</h5>
-        <small>last edited 3 days ago</small>
-      </div>
-      <div *ngIf="todos != null">
+     
+      <div *ngIf="lists != null && todos != null && lists.length &gt; 0">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Incomplete Tasks</h5>
+          <small>Last edited {{edited}}</small>
+        </div>
          <div  *ngFor="let item of todos; index as i">
-          <span *ngIf="!item.completed">
+          <span *ngIf="!item.completed && item.belongsToID === selectedList.id">
               <label class="form-control">
                   <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = true)" />
                   {{item.task}} 
@@ -30,7 +62,7 @@
           <h5 class="mb-1">Completed Tasks</h5>
       </div>
         <div *ngFor="let item of todos; index as i">
-          <span *ngIf="item.completed">
+          <span *ngIf="item.completed && item.belongsToID === selectedList.id">
               <label class="form-control radio-item">
               <input type="radio" name="radio" value="{{i}}" (change)="onChange($event, isCompleted = false)" />
                   {{item.task}}
@@ -41,6 +73,9 @@
         </div>   
       </div> 
       <!-- end todo container -->
+      <div *ngIf="lists != null && todos != null && todos.length === 0 && lists.length === 0">
+        <h4>Create a list and start adding tasks. :)</h4>
+      </div>
 </div>
 
 

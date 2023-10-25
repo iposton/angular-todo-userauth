@@ -3,4 +3,5 @@ export class Todo {
     completed?: boolean;
     lastEdited?: string;
     id?: string;
+    belongsToID?: string;
 }

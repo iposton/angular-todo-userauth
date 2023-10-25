@@ -13,12 +13,33 @@
 }
 
 .delete-btn,
-.task-btn {
+.task-btn,
+.update-btn {
     margin-left: 15px;
+}
+
+.list-select {
+    margin-right: 15px;
 }
 
 .edit-text {
     font-size: 12px;
     opacity: .7;
     float: right;
+}
+
+.list-header {
+    text-align: center;
+    margin: 20px;
+
+    .header-title {
+        font-size: 35px;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+ .list-header .header-title {
+    font-size: 22px;
+ }
 }
