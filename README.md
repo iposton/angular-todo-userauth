@@ -25,10 +25,10 @@ Password: test
 ## API Routes
 Run [Node.js todo userauth](https://github.com/iposton/nodejs-todo-userauth) server in your terminal at the same time as running the angular client server.
 
-Create List: POST (http://localhost:4000/lists, {name: 'List Name'}, {headers})
-Update List: POST (http://localhost:4000/lists, {name: 'New List Name'}, {headers})
-Delete List: DELETE (http://localhost:4000/lists/listID, listData)
-Get Lists: GET (http://localhost:4000/lists)
+* Create List: POST (http://localhost:4000/lists, {name: 'List Name'}, {headers})
+* Update List: POST (http://localhost:4000/lists, {name: 'New List Name'}, {headers})
+* Delete List: DELETE (http://localhost:4000/lists/listID, listData)
+* Get Lists: GET (http://localhost:4000/lists)
 
 Same for Todos.
 
